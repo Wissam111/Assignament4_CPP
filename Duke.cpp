@@ -16,7 +16,25 @@ namespace coup
 
     void Duke::tax()
     {
-        cout << "hoxfox" << endl;
+        if (_playerName == game.turn())
+        {
+
+            if (game.getCurr() == game.numOfPlayers() - 1)
+            {
+                game.setTurn(0);
+            }
+            else
+            {
+                int turn = game.getCurr();
+                turn++;
+                game.setTurn(turn);
+            }
+
+            upateOperation(TAX);
+            return;
+        }
+
+        throw "Not His Turn";
     }
 
 }

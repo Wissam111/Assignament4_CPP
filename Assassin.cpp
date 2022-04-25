@@ -10,9 +10,11 @@ namespace coup
         {
             throw "Invalid operations";
         }
+
         game.eraseAt(p);
         setCoins(coins() - 3);
-        upateOperation(COUP);
+        this->setLastOperPlayer(otherPlayer);
+        upateOperation(ASSASSIN);
     }
     string Assassin::role()
     {

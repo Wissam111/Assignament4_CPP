@@ -92,7 +92,7 @@ namespace coup
                 turn++;
                 game.setTurn(turn);
             }
-
+            this->setLastOperPlayer(otherPlayer);
             upateOperation(COUP);
             return;
         }

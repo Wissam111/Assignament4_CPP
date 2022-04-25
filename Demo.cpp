@@ -12,7 +12,6 @@
 #include "Captain.hpp"
 #include "Contessa.hpp"
 #include "Game.hpp"
-
 using namespace coup;
 
 #include <iostream>
@@ -45,7 +44,6 @@ int main()
 	*/
 	for (string name : players)
 	{
-
 		cout << name << endl;
 	}
 
@@ -58,70 +56,67 @@ int main()
 	ambassador.income();
 	captain.income();
 	contessa.income();
-	// cout << game_1.getCurr() << endl;
-	// cout << game_1.turn() << endl;
+
 	// throws exception, it is duke's turn now
 	// assassin.income();
 
 	duke.income();
 	assassin.foreign_aid();
 
-	cout << duke.coins() << endl;
-	cout << assassin.coins() << endl;
-
-	// // throws exception, the last operation duke performed
-	// // is income, which cannot be blocked by any role
+	// throws exception, the last operation duke performed
+	// is income, which cannot be blocked by any role
 	// captain.block(duke);
 
-	// cout << duke.coins() << endl;	  // prints 2
-	// cout << assassin.coins() << endl; // prints 3
+	cout << duke.coins() << endl;	  // prints 2
+	cout << assassin.coins() << endl; // prints 3
 
-	// // throws exception, the last operation duke performed
-	// // is foreign aid, which cannot be blocked by contessa
+	// throws exception, the last operation duke performed
+	// is foreign aid, which cannot be blocked by contessa
 	// contessa.block(assassin);
 
-	// duke.block(assassin);
-	// cout << assassin.coins() << endl; // prints 1
+	duke.block(assassin);
+	cout << assassin.coins() << endl; // prints 1
 
-	// ambassador.transfer(duke, assassin); // transfers 1 coin from duke to assassin
-	// captain.foreign_aid();
-	// contessa.foreign_aid();
+	ambassador.transfer(duke, assassin); // transfers 1 coin from duke to assassin
+	cout << game_1.getCurr() << endl;
+	captain.foreign_aid();
+	contessa.foreign_aid();
 
-	// duke.tax();
-	// assassin.income();
-	// ambassador.foreign_aid();
-	// captain.steal(contessa);
-	// contessa.foreign_aid();
+	duke.tax();
+	assassin.income();
+	ambassador.foreign_aid();
+	captain.steal(contessa);
+	contessa.foreign_aid();
 
-	// duke.tax();
-	// // no exception, assassin can coup with only 3 coins
-	// assassin.coup(duke);
+	duke.tax();
+	// no exception, assassin can coup with only 3 coins
+	assassin.coup(duke);
 
-	// players = game_1.players();
-	// /*
-	// 	prints:
-	// 	Yossi
-	// 	Meirav
-	// 	Reut
-	// 	Gilad
-	// */
-	// for (string name : players)
-	// {
-	// 	cout << name << endl;
-	// }
+	players = game_1.players();
+	/*
+		prints:
+		Yossi
+		Meirav
+		Reut
+		Gilad
+	*/
+	for (string name : players)
+	{
+		cout << name << endl;
+	}
+	cout << "---------" << endl;
+	contessa.block(assassin);
 
-	// contessa.block(assassin);
-
-	// players = game_1.players();
-	// /*
-	// 	prints:
-	// 	Yossi
-	// 	Meirav
-	// 	Reut
-	// 	Gilad
-	// */
-	// for (string name : players)
-	// {
-	// 	cout << name << endl;
-	// }
+	players = game_1.players();
+	/*
+		prints:
+		Yossi
+		Meirav
+		Reut
+		Gilad
+	*/
+	for (string name : players)
+	{
+		cout << name << endl;
+	}
 }

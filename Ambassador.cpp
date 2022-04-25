@@ -12,8 +12,27 @@ namespace coup
             throw "Invalid operation";
         }
 
-        player1.setCoins(player1.coins() - 1);
-        player2.setCoins(player1.coins() + 1);
+        if (_playerName == game.turn())
+        {
+
+            if (game.getCurr() == game.numOfPlayers() - 1)
+            {
+                game.setTurn(0);
+            }
+            else
+            {
+                int turn = game.getCurr();
+                turn++;
+                game.setTurn(turn);
+            }
+
+            player1.setCoins(player1.coins() - 1);
+            player2.setCoins(player1.coins() + 1);
+            upateOperation(FOREIGN_AID);
+            return;
+        }
+
+        throw "Not His Turn";
     }
 
 }
