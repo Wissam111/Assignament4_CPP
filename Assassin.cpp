@@ -10,6 +10,7 @@ namespace coup
         {
             throw "Invalid operations";
         }
+<<<<<<< HEAD
         if (_playerTurn == game.getTurn() && !isCuped())
         {
             otherPlayer.setCuped(true); // killed/Cuped
@@ -33,6 +34,13 @@ namespace coup
         }
 
         throw "Not His Turn";
+=======
+
+        game.eraseAt(p);
+        setCoins(coins() - 3);
+        this->setLastOperPlayer(otherPlayer);
+        upateOperation(ASSASSIN);
+>>>>>>> 0fd0e2e82c5791fc1620158877323faf2dd72de3
     }
     string Assassin::role()
     {

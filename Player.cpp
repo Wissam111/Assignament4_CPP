@@ -81,7 +81,11 @@ namespace coup
             {
                 updateTurns();
             }
+<<<<<<< HEAD
             this->setLastOperPlayer(otherPlayer.getPlayerIndex());
+=======
+            this->setLastOperPlayer(otherPlayer);
+>>>>>>> 0fd0e2e82c5791fc1620158877323faf2dd72de3
             upateOperation(COUP);
             return;
         }

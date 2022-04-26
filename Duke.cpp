@@ -25,6 +25,7 @@ namespace coup
 
     void Duke::tax()
     {
+<<<<<<< HEAD
         if (coins() >= 10)
         {
             throw "Operation Should be Coup!";
@@ -41,6 +42,25 @@ namespace coup
             updateTurns();
             return;
         }
+=======
+        if (_playerName == game.turn())
+        {
+
+            if (game.getCurr() == game.numOfPlayers() - 1)
+            {
+                game.setTurn(0);
+            }
+            else
+            {
+                int turn = game.getCurr();
+                turn++;
+                game.setTurn(turn);
+            }
+
+            upateOperation(TAX);
+            return;
+        }
+>>>>>>> 0fd0e2e82c5791fc1620158877323faf2dd72de3
 
         throw "Not His Turn";
     }
