@@ -24,7 +24,7 @@ namespace coup
             throw "Operation Should be Coup!";
         }
 
-        if (player_index == game.getTurn() && !isCuped())
+        if (_playerTurn == game.getTurn() && !isCuped())
         {
             _coins++;
             updateTurns();
@@ -47,8 +47,7 @@ namespace coup
         {
             throw "Operation Should be Coup!";
         }
-
-        if (player_index == game.getTurn() || !isCuped())
+        if (_playerTurn == game.getTurn() || !isCuped())
         {
             _coins += 2;
             updateTurns();
@@ -72,12 +71,16 @@ namespace coup
             throw "Invalid operations";
         }
 
-        if (player_index == game.getTurn() && !isCuped())
+        if (_playerTurn == game.getTurn() && !isCuped())
         {
             game.setNumOfPlayers(game.numOfPlayers() - 1);
             setCoins(coins() - 7);
-            updateTurns();
+
             updateGameList();
+            if (game.getTurn() < otherPlayer._playerTurn)
+            {
+                updateTurns();
+            }
             this->setLastOperPlayer(otherPlayer.getPlayerIndex());
             upateOperation(COUP);
             return;
@@ -144,6 +147,8 @@ namespace coup
         {
             if (!Player::_playersMap.at(i).isCuped())
             {
+
+                _playersMap.at(i).setTurnNumber(count);
                 count++;
                 index = i;
                 game.players().push_back(Player::_playersMap.at(i).getName());
@@ -156,4 +161,13 @@ namespace coup
         }
     }
 
+    void Player::setTurnNumber(int num)
+    {
+        _playerTurn = num;
+    }
+
+    int Player::getTurnNumber()
+    {
+        return _playerTurn;
+    }
 }

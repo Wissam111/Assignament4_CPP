@@ -17,10 +17,10 @@ namespace coup
     string Game::winner()
     {
 
-        // if (Game::_numOfPlayers == 1)
-        // {
-        //     return _winner;
-        // }
+        if (_numOfPlayers == 1)
+        {
+            return _winner;
+        }
 
         throw "Game Still Running!!";
     }

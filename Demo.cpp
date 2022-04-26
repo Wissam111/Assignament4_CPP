@@ -12,6 +12,7 @@
 #include "Captain.hpp"
 #include "Contessa.hpp"
 #include "Game.hpp"
+
 using namespace coup;
 
 #include <iostream>
@@ -47,21 +48,18 @@ int main()
 		cout << name << endl;
 	}
 
-	// // prints Moshe
+	// prints Moshe
 	cout << game_1.turn() << endl;
 
-	// // throws no exceptions
+	// throws no exceptions
 	duke.income();
 	assassin.income();
 	ambassador.income();
 	captain.income();
 	contessa.income();
-	cout << game_1.numOfPlayers() << endl;
 
-	// // throws exception, it is duke's turn now
+	// throws exception, it is duke's turn now
 	// assassin.income();
-
-	cout << game_1.getTurn() << endl;
 
 	duke.income();
 	assassin.foreign_aid();
@@ -73,15 +71,14 @@ int main()
 	cout << duke.coins() << endl;	  // prints 2
 	cout << assassin.coins() << endl; // prints 3
 
-	// // throws exception, the last operation duke performed
-	// // is foreign aid, which cannot be blocked by contessa
+	// throws exception, the last operation duke performed
+	// is foreign aid, which cannot be blocked by contessa
 	// contessa.block(assassin);
 
 	duke.block(assassin);
 	cout << assassin.coins() << endl; // prints 1
 
 	ambassador.transfer(duke, assassin); // transfers 1 coin from duke to assassin
-
 	captain.foreign_aid();
 	contessa.foreign_aid();
 
@@ -92,7 +89,6 @@ int main()
 	contessa.foreign_aid();
 
 	duke.tax();
-
 	// no exception, assassin can coup with only 3 coins
 	assassin.coup(duke);
 
@@ -108,11 +104,13 @@ int main()
 	{
 		cout << name << endl;
 	}
-	cout << "---------" << endl;
+
 	contessa.block(assassin);
+
 	players = game_1.players();
 	/*
 		prints:
+		Moshe
 		Yossi
 		Meirav
 		Reut

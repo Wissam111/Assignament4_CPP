@@ -11,7 +11,7 @@ namespace coup
             throw "Invalid operation";
         }
 
-        if (player_index == game.getTurn() && !isCuped())
+        if (_playerTurn == game.getTurn() && !isCuped())
         {
 
             updateTurns();
@@ -19,11 +19,6 @@ namespace coup
             this->setCoins(_coins + 2);
             otherPlayer.setCoins(otherPlayer.coins() - 2);
             upateOperation(STEAL);
-            return;
-        }
-        else if (isCuped())
-        {
-            updateTurns();
             return;
         }
 
@@ -44,4 +39,8 @@ namespace coup
         throw "His Last Operation Cant be blocked";
     }
 
+    string Captain::role()
+    {
+        return "Captain";
+    }
 }

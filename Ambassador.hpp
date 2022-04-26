@@ -12,7 +12,6 @@ namespace coup
 
     class Ambassador : public Player
     {
-
     public:
         Ambassador(Game &game, string playerName) : Player(game, playerName) {}
         void block(Player &otherPlayer);

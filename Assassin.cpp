@@ -10,12 +10,15 @@ namespace coup
         {
             throw "Invalid operations";
         }
-        if (player_index == game.getTurn() && !_COUPED)
+        if (_playerTurn == game.getTurn() && !isCuped())
         {
-            // game.eraseAt(p);
             otherPlayer.setCuped(true); // killed/Cuped
-            updateTurns();
+
             updateGameList();
+            if (game.getTurn() < otherPlayer.getTurnNumber())
+            {
+                updateTurns();
+            }
             setCoins(coins() - 3);
             this->setLastOperPlayer(otherPlayer.getPlayerIndex());
             upateOperation(ASSASSIN);
@@ -23,7 +26,7 @@ namespace coup
 
             return;
         }
-        else if (_COUPED)
+        else if (isCuped())
         {
             updateTurns();
             return;

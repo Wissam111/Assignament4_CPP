@@ -5,28 +5,18 @@ namespace coup
 
     void Ambassador::transfer(Player &player1, Player &player2)
     {
-        if (coins() >= 10)
-        {
-            throw "Operation Should be Coup!";
-        }
-
-        if (player1.coins() < 1)
+        if (coins() >= 10 || player1.coins() < 1)
         {
             throw "Invalid operation";
         }
 
-        if (player_index == game.getTurn() && !isCuped())
+        if (_playerTurn == game.getTurn() && !isCuped())
         {
 
             updateTurns();
             player1.setCoins(player1.coins() - 1);
             player2.setCoins(player1.coins() + 1);
             upateOperation(FOREIGN_AID);
-            return;
-        }
-        else if (isCuped())
-        {
-            updateTurns();
             return;
         }
 
