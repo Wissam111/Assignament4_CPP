@@ -12,6 +12,7 @@
 #include "Captain.hpp"
 #include "Contessa.hpp"
 #include "Game.hpp"
+
 using namespace coup;
 
 #include <iostream>
@@ -78,10 +79,6 @@ int main()
 	cout << assassin.coins() << endl; // prints 1
 
 	ambassador.transfer(duke, assassin); // transfers 1 coin from duke to assassin
-<<<<<<< HEAD
-=======
-	cout << game_1.getCurr() << endl;
->>>>>>> 0fd0e2e82c5791fc1620158877323faf2dd72de3
 	captain.foreign_aid();
 	contessa.foreign_aid();
 
@@ -94,8 +91,6 @@ int main()
 	duke.tax();
 	// no exception, assassin can coup with only 3 coins
 	assassin.coup(duke);
-<<<<<<< HEAD
-=======
 
 	players = game_1.players();
 	/*
@@ -109,23 +104,6 @@ int main()
 	{
 		cout << name << endl;
 	}
-	cout << "---------" << endl;
-	contessa.block(assassin);
->>>>>>> 0fd0e2e82c5791fc1620158877323faf2dd72de3
-
-	players = game_1.players();
-	/*
-		prints:
-		Yossi
-		Meirav
-		Reut
-		Gilad
-	*/
-	for (string name : players)
-	{
-		cout << name << endl;
-	}
-<<<<<<< HEAD
 
 	contessa.block(assassin);
 
@@ -142,6 +120,4 @@ int main()
 	{
 		cout << name << endl;
 	}
-=======
->>>>>>> 0fd0e2e82c5791fc1620158877323faf2dd72de3
 }

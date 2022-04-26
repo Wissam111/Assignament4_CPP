@@ -16,14 +16,10 @@ namespace coup
         int _coins = 0;
         bool _COUPED = false;
         OPERATION lastoper;
-<<<<<<< HEAD
         int lastOperPlayer;
         int player_index;
         static int player_counter;
         int _playerTurn = 0;
-=======
-        Player *lastOperPlayer;
->>>>>>> 0fd0e2e82c5791fc1620158877323faf2dd72de3
 
     public:
         static map<int, Player &> _playersMap;
@@ -47,7 +43,6 @@ namespace coup
         void upateOperation(OPERATION oper);
         string getName();
         OPERATION getLastOper();
-<<<<<<< HEAD
         int getPlayerIndex();
         void updateTurns();
         void updateGameList();
@@ -62,19 +57,9 @@ namespace coup
         int getLastPlayer()
         {
             return lastOperPlayer;
-=======
-        void setLastOperPlayer(Player &otherPlayer)
-        {
-            lastOperPlayer = &otherPlayer;
-        }
-        Player &getLastPlayer()
-        {
-            return *lastOperPlayer;
->>>>>>> 0fd0e2e82c5791fc1620158877323faf2dd72de3
         }
 
         virtual void coup(Player &otherPlayer);
         virtual string role() { return ""; }
     };
-
 }

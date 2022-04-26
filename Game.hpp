@@ -28,20 +28,12 @@ namespace coup
         int _currPlayer = 0;
         int _numOfPlayers = 0;
         string _winner;
-        bool _isRunning = false;
 
     public:
-<<<<<<< HEAD
         Game(){};
         ~Game(){};
         int numOfPlayers();
         void setNumOfPlayers(int num);
-=======
-        Game() { _isRunning = true; }
-        ~Game(){};
-        int numOfPlayers();
-
->>>>>>> 0fd0e2e82c5791fc1620158877323faf2dd72de3
         vector<string> &players();
         void setWinner(string winner);
         void setTurn(int currPlayerIndex);
