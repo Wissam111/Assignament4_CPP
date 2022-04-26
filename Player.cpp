@@ -26,6 +26,7 @@ namespace coup
 
         if (_playerTurn == game.getTurn() && !isCuped())
         {
+
             _coins++;
             updateTurns();
             upateOperation(INCOME);

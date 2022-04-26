@@ -29,9 +29,9 @@ namespace coup
             game.players().push_back(playerName);
             player_index = Player::player_counter;
             Player::_playersMap.insert(pair<int, Player &>(player_index, *this));
-            _playerTurn = player_counter;
-            Player::player_counter++;
 
+            Player::player_counter++;
+            _playerTurn = game.numOfPlayers();
             game.setNumOfPlayers(game.numOfPlayers() + 1);
         };
 
