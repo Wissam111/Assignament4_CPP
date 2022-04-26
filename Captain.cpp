@@ -3,22 +3,31 @@
 namespace coup
 {
 
-    string Captain::role()
-    {
-        return "Captain";
-    }
-
     void Captain::steal(Player &otherPlayer)
     {
-        int p1 = game.getPlayerIndex(otherPlayer.getName());
 
-        if (p1 == -1 || otherPlayer.coins() < 1)
+        if (otherPlayer.coins() < 2 || coins() >= 10)
         {
             throw "Invalid operation";
         }
 
-        this->setCoins(_coins + 1);
-        otherPlayer.setCoins(otherPlayer.coins() - 1);
+        if (player_index == game.getTurn() && !isCuped())
+        {
+
+            updateTurns();
+            this->setLastOperPlayer(otherPlayer.getPlayerIndex());
+            this->setCoins(_coins + 2);
+            otherPlayer.setCoins(otherPlayer.coins() - 2);
+            upateOperation(STEAL);
+            return;
+        }
+        else if (isCuped())
+        {
+            updateTurns();
+            return;
+        }
+
+        throw "Not His Turn";
     }
 
     void Captain::block(Player &otherPlayer)
@@ -26,6 +35,9 @@ namespace coup
         if (otherPlayer.getLastOper() == STEAL)
         {
 
+            int c = Player::_playersMap.at(getLastPlayer()).coins();
+            this->setCoins(coins() - 2);
+            Player::_playersMap.at(getLastPlayer()).setCoins(c + 2);
             return;
         }
 

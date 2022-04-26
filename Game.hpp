@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <string>
-
+#include <map>
 using namespace std;
 namespace coup
 {
@@ -16,6 +16,7 @@ namespace coup
         ROLE,
         BLOCK,
         TRANSFER,
+        ASSASSIN,
         TAX,
         STEAL
     };
@@ -24,24 +25,21 @@ namespace coup
     {
     private:
         vector<string> _players;
-        // vector<Player> _playersObj;
         int _currPlayer = 0;
+        int _numOfPlayers = 0;
         string _winner;
 
     public:
-        Game() {}
+        Game(){};
         ~Game(){};
         int numOfPlayers();
-        bool _isRunning = false;
+        void setNumOfPlayers(int num);
         vector<string> &players();
         void setWinner(string winner);
         void setTurn(int currPlayerIndex);
-        int getCurr();
-        void eraseAt(int index);
-
+        int getTurn();
         string turn();
         string winner();
-        int getPlayerIndex(string playerName);
     };
 
 }

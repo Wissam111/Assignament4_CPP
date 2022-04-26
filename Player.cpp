@@ -4,20 +4,13 @@
 
 namespace coup
 {
-
-    // Player::Player(Game &game, string playerName)
-    // {
-    //     this->game = game;
-    //     this->_playerName = playerName;
-    //     game.players().push_back(playerName);
-    //     // this->game._players.push_back(playerName);
-    // }
+    int Player::player_counter = 0;
+    map<int, Player &> Player::_playersMap;
 
     int Player::coins()
     {
         return _coins;
     }
-
     void Player::setCoins(int coins)
     {
         _coins = coins;
@@ -25,21 +18,22 @@ namespace coup
 
     void Player::income()
     {
-        if (_playerName == game.turn())
+
+        if (coins() >= 10)
+        {
+            throw "Operation Should be Coup!";
+        }
+
+        if (player_index == game.getTurn() && !isCuped())
         {
             _coins++;
-            if (game.getCurr() == game.numOfPlayers() - 1)
-            {
-                game.setTurn(0);
-            }
-            else
-            {
-                int turn = game.getCurr();
-                turn++;
-                game.setTurn(turn);
-            }
-
+            updateTurns();
             upateOperation(INCOME);
+            return;
+        }
+        else if (isCuped())
+        {
+            updateTurns();
             return;
         }
 
@@ -48,21 +42,22 @@ namespace coup
 
     void Player::foreign_aid()
     {
-        if (_playerName == game.turn())
+
+        if (coins() >= 10)
+        {
+            throw "Operation Should be Coup!";
+        }
+
+        if (player_index == game.getTurn() || !isCuped())
         {
             _coins += 2;
-            if (game.getCurr() == game.numOfPlayers() - 1)
-            {
-                game.setTurn(0);
-            }
-            else
-            {
-                int turn = game.getCurr();
-                turn++;
-                game.setTurn(turn);
-            }
-
+            updateTurns();
             upateOperation(FOREIGN_AID);
+            return;
+        }
+        else if (isCuped())
+        {
+            updateTurns();
             return;
         }
 
@@ -71,29 +66,25 @@ namespace coup
 
     void Player::coup(Player &otherPlayer)
     {
-        int p = game.getPlayerIndex(otherPlayer._playerName);
-        if (p == -1 || coins() < 7)
+
+        if (coins() < 7)
         {
             throw "Invalid operations";
         }
 
-        if (_playerName == game.turn())
+        if (player_index == game.getTurn() && !isCuped())
         {
-            game.eraseAt(p);
+            game.setNumOfPlayers(game.numOfPlayers() - 1);
             setCoins(coins() - 7);
-
-            if (game.getCurr() == game.numOfPlayers() - 1)
-            {
-                game.setTurn(0);
-            }
-            else
-            {
-                int turn = game.getCurr();
-                turn++;
-                game.setTurn(turn);
-            }
-
+            updateTurns();
+            updateGameList();
+            this->setLastOperPlayer(otherPlayer.getPlayerIndex());
             upateOperation(COUP);
+            return;
+        }
+        else if (isCuped())
+        {
+            updateTurns();
             return;
         }
 
@@ -113,4 +104,56 @@ namespace coup
     {
         return lastoper;
     }
+
+    int Player::getPlayerIndex()
+    {
+        return player_index;
+    }
+
+    void Player::updateTurns()
+    {
+
+        if (game.getTurn() == game.numOfPlayers() - 1)
+        {
+            game.setTurn(0);
+        }
+        else
+        {
+            int turn = game.getTurn();
+            turn++;
+            game.setTurn(turn);
+        }
+    }
+
+    bool Player::isCuped()
+    {
+        return _COUPED;
+    }
+    void Player::setCuped(bool b)
+    {
+        _COUPED = b;
+    }
+
+    void Player::updateGameList()
+    {
+
+        int index = -1;
+        int count = 0;
+        game.players().clear();
+        for (int i = 0; i < Player::_playersMap.size(); i++)
+        {
+            if (!Player::_playersMap.at(i).isCuped())
+            {
+                count++;
+                index = i;
+                game.players().push_back(Player::_playersMap.at(i).getName());
+            }
+        }
+
+        if (count == 1)
+        {
+            game.setWinner(Player::_playersMap.at(index).getName());
+        }
+    }
+
 }

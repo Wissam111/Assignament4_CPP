@@ -16,11 +16,11 @@ namespace coup
 
     string Game::winner()
     {
-        if (!_isRunning)
-        {
 
-            return _winner;
-        }
+        // if (Game::_numOfPlayers == 1)
+        // {
+        //     return _winner;
+        // }
 
         throw "Game Still Running!!";
     }
@@ -37,31 +37,15 @@ namespace coup
 
     int Game::numOfPlayers()
     {
-        return _players.size();
+        return _numOfPlayers;
     }
-
-    int Game::getCurr()
+    void Game::setNumOfPlayers(int num)
+    {
+        _numOfPlayers = num;
+    }
+    int Game::getTurn()
     {
         return _currPlayer;
-    }
-
-    int Game::getPlayerIndex(string playerName)
-    {
-        for (int i = 0; i < _players.size(); i++)
-        {
-            if (_players[unsigned(i)] == playerName)
-            {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
-    void Game::eraseAt(int index)
-    {
-
-        _players.erase(_players.begin() + index);
     }
 
 }

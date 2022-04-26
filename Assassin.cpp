@@ -5,14 +5,31 @@ namespace coup
 
     void Assassin::coup(Player &otherPlayer)
     {
-        int p = game.getPlayerIndex(otherPlayer.getName());
-        if (p == -1 || coins() < 3)
+
+        if (coins() < 3)
         {
             throw "Invalid operations";
         }
-        game.eraseAt(p);
-        setCoins(coins() - 3);
-        upateOperation(COUP);
+        if (player_index == game.getTurn() && !_COUPED)
+        {
+            // game.eraseAt(p);
+            otherPlayer.setCuped(true); // killed/Cuped
+            updateTurns();
+            updateGameList();
+            setCoins(coins() - 3);
+            this->setLastOperPlayer(otherPlayer.getPlayerIndex());
+            upateOperation(ASSASSIN);
+            game.setNumOfPlayers(game.numOfPlayers() - 1);
+
+            return;
+        }
+        else if (_COUPED)
+        {
+            updateTurns();
+            return;
+        }
+
+        throw "Not His Turn";
     }
     string Assassin::role()
     {

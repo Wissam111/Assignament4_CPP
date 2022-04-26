@@ -11,12 +11,38 @@ namespace coup
 
     void Duke::block(Player &otherPlayer)
     {
-        cout << "hoxfox" << endl;
+
+        if (otherPlayer.getLastOper() == FOREIGN_AID)
+        {
+
+            int c = otherPlayer.coins();
+            otherPlayer.setCoins(c - 2);
+            return;
+        }
+
+        throw "His Last Operation Cant be blocked";
     }
 
     void Duke::tax()
     {
-        cout << "hoxfox" << endl;
+        if (coins() >= 10)
+        {
+            throw "Operation Should be Coup!";
+        }
+        if (player_index == game.getTurn() || !isCuped())
+        {
+            _coins += 3;
+            updateTurns();
+            upateOperation(TAX);
+            return;
+        }
+        else if (isCuped())
+        {
+            updateTurns();
+            return;
+        }
+
+        throw "Not His Turn";
     }
 
 }

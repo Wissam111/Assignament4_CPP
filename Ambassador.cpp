@@ -5,15 +5,47 @@ namespace coup
 
     void Ambassador::transfer(Player &player1, Player &player2)
     {
-        int p1 = game.getPlayerIndex(player1.getName());
-        int p2 = game.getPlayerIndex(player2.getName());
-        if (player1.coins() < 1 || p1 == -1 || p2 == -1)
+        if (coins() >= 10)
+        {
+            throw "Operation Should be Coup!";
+        }
+
+        if (player1.coins() < 1)
         {
             throw "Invalid operation";
         }
 
-        player1.setCoins(player1.coins() - 1);
-        player2.setCoins(player1.coins() + 1);
+        if (player_index == game.getTurn() && !isCuped())
+        {
+
+            updateTurns();
+            player1.setCoins(player1.coins() - 1);
+            player2.setCoins(player1.coins() + 1);
+            upateOperation(FOREIGN_AID);
+            return;
+        }
+        else if (isCuped())
+        {
+            updateTurns();
+            return;
+        }
+
+        throw "Not His Turn";
+    }
+
+    void Ambassador::block(Player &otherPlayer)
+    {
+
+        if (otherPlayer.getLastOper() == STEAL)
+        {
+
+            int c = Player::_playersMap.at(getLastPlayer()).coins();
+            this->setCoins(coins() - 2);
+            Player::_playersMap.at(getLastPlayer()).setCoins(c + 2);
+            return;
+        }
+
+        throw "His Last Operation Cant be blocked";
     }
 
 }
