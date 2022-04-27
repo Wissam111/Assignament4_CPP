@@ -4,8 +4,6 @@
 
 namespace coup
 {
-    int Player::player_counter = 0;
-    map<int, Player &> Player::_playersMap;
 
     int Player::coins()
     {
@@ -18,75 +16,57 @@ namespace coup
 
     void Player::income()
     {
-
-        if (coins() >= 10)
-        {
-            throw "Operation Should be Coup!";
-        }
-
-        if (_playerTurn == game.getTurn() && !isCuped())
+        int plrT = game.playerTurn(player_index);
+        bool b = (plrT == game.getTurn() && !game.isCopued(player_index));
+        if (coins() >= tenCoins || !b)
         {
 
-            _coins++;
-            updateTurns();
-            upateOperation(INCOME);
-            return;
+            throw invalid_argument("Invalid operations!");
         }
-
-        throw "Not His Turn";
+        _coins++;
+        game.updateTurns();
+        upateOperation(INCOME);
     }
 
     void Player::foreign_aid()
     {
-
-        if (coins() >= 10)
+        int plrT = game.playerTurn(player_index);
+        bool b = (plrT == game.getTurn() && !game.isCopued(player_index));
+        if (coins() >= tenCoins || !b)
         {
-            throw "Operation Should be Coup!";
-        }
-        if (_playerTurn == game.getTurn() || !isCuped())
-        {
-            _coins += 2;
-            updateTurns();
-            upateOperation(FOREIGN_AID);
-            return;
+            throw invalid_argument("Invalid operations!");
         }
 
-        throw "Not His Turn";
+        _coins += 2;
+        game.updateTurns();
+        upateOperation(FOREIGN_AID);
     }
 
     void Player::coup(Player &otherPlayer)
     {
-
-        if (coins() < 7)
+        int plrT = game.playerTurn(player_index);
+        int otherplrT = game.playerTurn(otherPlayer.getPlayerIndex());
+        bool b = (plrT == game.getTurn() && !game.isCopued(player_index));
+        if (coins() < sevenCoins || !b)
         {
-            throw "Invalid operations";
+            throw invalid_argument("Invalid operations!");
         }
 
-        if (_playerTurn == game.getTurn() && !isCuped())
+        game.setNumOfPlayers(game.numOfPlayers() - 1);
+        setCoins(coins() - sevenCoins);
+        game.resetTurns();
+        if (game.getTurn() < otherplrT)
         {
-            game.setNumOfPlayers(game.numOfPlayers() - 1);
-            setCoins(coins() - 7);
-
-            updateGameList();
-            if (game.getTurn() < otherPlayer._playerTurn)
-            {
-                updateTurns();
-            }
-            this->setLastOperPlayer(otherPlayer.getPlayerIndex());
-            upateOperation(COUP);
-            return;
+            game.updateTurns();
         }
-
-        throw "Not His Turn";
+        game.setCopued(otherPlayer.getPlayerIndex(), true);
+        this->setLastOperPlayer(otherPlayer);
+        upateOperation(COUP);
     }
 
     void Player::upateOperation(OPERATION oper)
     {
         lastoper = oper;
-    }
-    string Player::getName()
-    {
-        return _playerName;
     }
 
     OPERATION Player::getLastOper()
@@ -99,61 +79,4 @@ namespace coup
         return player_index;
     }
 
-    void Player::updateTurns()
-    {
-
-        if (game.getTurn() == game.numOfPlayers() - 1)
-        {
-            game.setTurn(0);
-        }
-        else
-        {
-            int turn = game.getTurn();
-            turn++;
-            game.setTurn(turn);
-        }
-    }
-
-    bool Player::isCuped()
-    {
-        return _COUPED;
-    }
-    void Player::setCuped(bool b)
-    {
-        _COUPED = b;
-    }
-
-    void Player::updateGameList()
-    {
-
-        int index = -1;
-        int count = 0;
-        game.players().clear();
-        for (int i = 0; i < Player::_playersMap.size(); i++)
-        {
-            if (!Player::_playersMap.at(i).isCuped())
-            {
-
-                _playersMap.at(i).setTurnNumber(count);
-                count++;
-                index = i;
-                game.players().push_back(Player::_playersMap.at(i).getName());
-            }
-        }
-
-        if (count == 1)
-        {
-            game.setWinner(Player::_playersMap.at(index).getName());
-        }
-    }
-
-    void Player::setTurnNumber(int num)
-    {
-        _playerTurn = num;
-    }
-
-    int Player::getTurnNumber()
-    {
-        return _playerTurn;
-    }
 }

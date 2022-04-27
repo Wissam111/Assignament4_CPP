@@ -1,6 +1,11 @@
 
-#include "Duke.hpp"
+/*
+ * AUTHORS: Wissam kabha
+ * gitHub: https://github.com/Wissam111
+ * Date: 04/2022
+ */
 
+#include "Duke.hpp"
 namespace coup
 {
 
@@ -11,7 +16,6 @@ namespace coup
 
     void Duke::block(Player &otherPlayer)
     {
-
         if (otherPlayer.getLastOper() == FOREIGN_AID)
         {
 
@@ -20,24 +24,20 @@ namespace coup
             return;
         }
 
-        throw "His Last Operation Cant be blocked";
+        throw invalid_argument("Invalid operations!");
     }
 
     void Duke::tax()
     {
-
-        if (coins() >= 10)
+        int plrT = game.playerTurn(player_index);
+        bool b = (plrT == game.getTurn() && !game.isCopued(player_index));
+        if (coins() >= tenCoins || !b)
         {
-            throw "Operation Should be Coup!";
-        }
-        if (_playerTurn == game.getTurn() || !isCuped())
-        {
-            _coins += 3;
-            updateTurns();
-            upateOperation(TAX);
-            return;
+            throw invalid_argument("Invalid operations!");
         }
 
-        throw "Not His Turn";
+        _coins += threeCoins;
+        game.updateTurns();
+        upateOperation(TAX);
     }
 }

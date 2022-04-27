@@ -1,3 +1,9 @@
+/*
+ * AUTHORS: Wissam kabha
+ * gitHub: https://github.com/Wissam111
+ * Date: 04/2022
+ */
+
 #pragma once
 #include <iostream>
 #include <algorithm>
@@ -7,6 +13,13 @@
 using namespace std;
 namespace coup
 {
+
+    struct plr
+    {
+        string name;
+        bool isCouped = false;
+        int turn;
+    };
 
     enum OPERATION
     {
@@ -19,27 +32,38 @@ namespace coup
         ASSASSIN,
         TAX,
         STEAL
+
     };
 
     class Game
     {
-    private:
-        vector<string> _players;
-        int _currPlayer = 0;
+    protected:
+        int _currPlayerTurn = 0;
         int _numOfPlayers = 0;
         string _winner;
+        vector<string> players_names;
+        map<int, plr> _playersMap;
 
     public:
         Game(){};
         ~Game(){};
-        int numOfPlayers();
-        void setNumOfPlayers(int num);
-        vector<string> &players();
-        void setWinner(string winner);
-        void setTurn(int currPlayerIndex);
-        int getTurn();
+        /*Main operations*/
         string turn();
         string winner();
+        vector<string> players();
+
+        /*healper Functions*/
+        int numOfPlayers();
+        void setNumOfPlayers(int num);
+        void setPlayerTurn(int playerIndex, int turn);
+        void setPlayerName(int playerIndex, string name);
+        void setCopued(int playerIndex, bool copued);
+        bool isCopued(int playerIndex);
+        int playerTurn(int playerIndex);
+        void resetTurns();
+        void updateTurns();
+        void setTurn(int currPlayerIndex);
+        int getTurn();
     };
 
 }

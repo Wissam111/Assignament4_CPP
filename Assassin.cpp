@@ -1,3 +1,9 @@
+/*
+ * AUTHORS: Wissam kabha
+ * gitHub: https://github.com/Wissam111
+ * Date: 04/2022
+ */
+
 #include "Assassin.hpp"
 #include "Player.hpp"
 namespace coup
@@ -6,28 +12,23 @@ namespace coup
     void Assassin::coup(Player &otherPlayer)
     {
 
-        if (coins() < 3)
+        int plrT = game.playerTurn(player_index);
+        int otherplrT = game.playerTurn(otherPlayer.getPlayerIndex());
+        bool b = (plrT == game.getTurn() && !game.isCopued(player_index));
+        if (coins() < threeCoins || !b)
         {
-            throw "Invalid operations";
+            throw invalid_argument("Invalid operations!");
         }
-        if (_playerTurn == game.getTurn() && !isCuped())
+        game.setCopued(otherPlayer.getPlayerIndex(), true);
+        game.resetTurns();
+        if (game.getTurn() < otherplrT)
         {
-            otherPlayer.setCuped(true); // killed/Cuped
-
-            updateGameList();
-            if (game.getTurn() < otherPlayer.getTurnNumber())
-            {
-                updateTurns();
-            }
-            setCoins(coins() - 3);
-            this->setLastOperPlayer(otherPlayer.getPlayerIndex());
-            upateOperation(ASSASSIN);
-            game.setNumOfPlayers(game.numOfPlayers() - 1);
-
-            return;
+            game.updateTurns();
         }
-
-        throw "Not His Turn";
+        setCoins(coins() - threeCoins);
+        setLastOperPlayer(otherPlayer);
+        upateOperation(ASSASSIN);
+        game.setNumOfPlayers(game.numOfPlayers() - 1);
     }
     string Assassin::role()
     {

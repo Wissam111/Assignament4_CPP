@@ -1,5 +1,10 @@
-#include "Contessa.hpp"
+/*
+ * AUTHORS: Wissam kabha
+ * gitHub: https://github.com/Wissam111
+ * Date: 04/2022
+ */
 
+#include "Contessa.hpp"
 namespace coup
 {
 
@@ -12,13 +17,12 @@ namespace coup
     {
         if (otherPlayer.getLastOper() == ASSASSIN)
         {
-            Player::_playersMap.at(otherPlayer.getLastPlayer()).setCuped(false);
-            updateGameList();
+            game.setCopued(otherPlayer.getLastPlayer().getPlayerIndex(), false);
             game.setNumOfPlayers(game.numOfPlayers() + 1);
             return;
         }
 
-        throw "His Last Operation Cant be blocked";
+        throw invalid_argument("Invalid operations!");
     }
 
 }

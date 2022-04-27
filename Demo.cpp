@@ -18,6 +18,7 @@ using namespace coup;
 #include <iostream>
 #include <stdexcept>
 #include <vector>
+#include <stdexcept>
 using namespace std;
 
 int main()
@@ -57,23 +58,47 @@ int main()
 	ambassador.income();
 	captain.income();
 	contessa.income();
+	try
+	{
+		// throws exception, it is duke's turn now
+		assassin.income();
+	}
+	catch (const std::exception &e)
 
-	// throws exception, it is duke's turn now
-	// assassin.income();
+	{
+		cout << e.what() << endl;
+	}
 
 	duke.income();
 	assassin.foreign_aid();
+	try
+	{
+		// throws exception, the last operation duke performed
+		// is income, which cannot be blocked by any role
+		captain.block(duke);
+	}
 
-	// throws exception, the last operation duke performed
-	// is income, which cannot be blocked by any role
-	// captain.block(duke);
+	catch (const std::exception &e)
+
+	{
+		cout << e.what() << endl;
+	}
 
 	cout << duke.coins() << endl;	  // prints 2
 	cout << assassin.coins() << endl; // prints 3
 
-	// throws exception, the last operation duke performed
-	// is foreign aid, which cannot be blocked by contessa
-	// contessa.block(assassin);
+	try
+	{
+		// throws exception, the last operation duke performed
+		// is foreign aid, which cannot be blocked by contessa
+		contessa.block(assassin);
+	}
+
+	catch (const std::exception &e)
+
+	{
+		cout << e.what() << endl;
+	}
 
 	duke.block(assassin);
 	cout << assassin.coins() << endl; // prints 1
