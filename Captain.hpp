@@ -21,7 +21,6 @@ namespace coup
     public:
         Captain(Game &game, string playerName) : Player(game, playerName) {}
         string role() override;
-
         void steal(Player &otherPlayer);
         void block(Player &otherPlayer);
     };

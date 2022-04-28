@@ -34,7 +34,7 @@ namespace coup
         };
 
         /*operations*/
-        int coins();
+        int coins() const;
         void income();
         void foreign_aid();
         virtual void coup(Player &otherPlayer);
@@ -44,16 +44,9 @@ namespace coup
         void setCoins(int coins);
         void upateOperation(OPERATION oper);
         OPERATION getLastOper();
-        int getPlayerIndex();
-
-        void setLastOperPlayer(Player &otherPlayer)
-        {
-            lastOperPlayer = &otherPlayer;
-        }
-        Player &getLastPlayer()
-        {
-            return *lastOperPlayer;
-        }
+        int getPlayerIndex() const;
+        void setLastOperPlayer(Player &otherPlayer);
+        Player &getLastPlayer();
 
         const int tenCoins = 10;
         const int sevenCoins = 7;

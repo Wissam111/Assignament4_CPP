@@ -21,10 +21,9 @@ namespace coup
 
     public:
         Duke(Game &game, string playerName) : Player(game, playerName) {}
-
         string role() override;
-        void block(Player &otherPlayer);
         void tax();
+        void block(Player &otherPlayer);
     };
 
 }

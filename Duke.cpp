@@ -14,19 +14,6 @@ namespace coup
         return "Duke";
     }
 
-    void Duke::block(Player &otherPlayer)
-    {
-        if (otherPlayer.getLastOper() == FOREIGN_AID)
-        {
-
-            int c = otherPlayer.coins();
-            otherPlayer.setCoins(c - 2);
-            return;
-        }
-
-        throw invalid_argument("Invalid operations!");
-    }
-
     void Duke::tax()
     {
         int plrT = game.playerTurn(player_index);
@@ -39,5 +26,18 @@ namespace coup
         _coins += threeCoins;
         game.updateTurns();
         upateOperation(TAX);
+    }
+
+    void Duke::block(Player &otherPlayer)
+    {
+        if (otherPlayer.getLastOper() == FOREIGN_AID)
+        {
+
+            int c = otherPlayer.coins();
+            otherPlayer.setCoins(c - 2);
+            return;
+        }
+
+        throw invalid_argument("Invalid operations!");
     }
 }

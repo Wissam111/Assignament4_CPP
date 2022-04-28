@@ -5,15 +5,6 @@
 namespace coup
 {
 
-    int Player::coins()
-    {
-        return _coins;
-    }
-    void Player::setCoins(int coins)
-    {
-        _coins = coins;
-    }
-
     void Player::income()
     {
         int plrT = game.playerTurn(player_index);
@@ -64,6 +55,15 @@ namespace coup
         upateOperation(COUP);
     }
 
+    int Player::coins() const
+    {
+        return _coins;
+    }
+    void Player::setCoins(int coins)
+    {
+        _coins = coins;
+    }
+
     void Player::upateOperation(OPERATION oper)
     {
         lastoper = oper;
@@ -74,9 +74,19 @@ namespace coup
         return lastoper;
     }
 
-    int Player::getPlayerIndex()
+    int Player::getPlayerIndex() const
     {
         return player_index;
+    }
+
+    void Player::setLastOperPlayer(Player &otherPlayer)
+    {
+        lastOperPlayer = &otherPlayer;
+    }
+
+    Player &Player::getLastPlayer()
+    {
+        return *lastOperPlayer;
     }
 
 }
