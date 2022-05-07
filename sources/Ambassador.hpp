@@ -16,14 +16,13 @@ using namespace std;
 namespace coup
 {
 
-    class Duke : public Player
+    class Ambassador : public Player
     {
-
     public:
-        Duke(Game &game, string playerName) : Player(game, playerName) {}
+        Ambassador(Game &game, string playerName) : Player(game, playerName) {}
+        static void block(Player &otherPlayer);
+        void transfer(Player &player1, Player &player2);
         string role() override;
-        void tax();
-        void block(Player &otherPlayer);
     };
 
 }

@@ -35,23 +35,31 @@ namespace coup
 
     void Player::coup(Player &otherPlayer)
     {
+
         int plrT = game.playerTurn(player_index);
         int otherplrT = game.playerTurn(otherPlayer.getPlayerIndex());
-        bool b = (plrT == game.getTurn() && !game.isCopued(player_index));
+
+        bool b = (plrT == game.getTurn() && !game.isCopued(otherPlayer.getPlayerIndex()));
         if (coins() < sevenCoins || !b)
         {
             throw invalid_argument("Invalid operations!");
         }
 
+        game.setCopued(otherPlayer.getPlayerIndex(), true);
         game.setNumOfPlayers(game.numOfPlayers() - 1);
         setCoins(coins() - sevenCoins);
-        game.resetTurns();
+        // game.resetTurns();
         if (game.getTurn() < otherplrT)
         {
             game.updateTurns();
         }
-        game.setCopued(otherPlayer.getPlayerIndex(), true);
+        game.resetTurns();
+        if (game.numOfPlayers() == 1)
+        {
+            game.setRunning(false);
+        }
         this->setLastOperPlayer(otherPlayer);
+
         upateOperation(COUP);
     }
 

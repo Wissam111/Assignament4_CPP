@@ -15,10 +15,19 @@ namespace coup
 
     void Contessa::block(Player &otherPlayer)
     {
+
+        int otherplrT = game.playerTurn(otherPlayer.getLastPlayer().getPlayerIndex());
         if (otherPlayer.getLastOper() == ASSASSIN)
         {
+
             game.setCopued(otherPlayer.getLastPlayer().getPlayerIndex(), false);
             game.setNumOfPlayers(game.numOfPlayers() + 1);
+            game.resetTurns();
+            if (game.getTurn() > otherplrT)
+            {
+                game.updateTurns();
+            }
+
             return;
         }
 

@@ -19,6 +19,7 @@ namespace coup
         string name;
         bool isCouped = false;
         int turn;
+        int plrIndex;
     };
 
     enum OPERATION
@@ -31,7 +32,8 @@ namespace coup
         TRANSFER,
         ASSASSIN,
         TAX,
-        STEAL
+        STEAL,
+        STEAL1,
 
     };
 
@@ -40,6 +42,7 @@ namespace coup
     protected:
         int _currPlayerTurn = 0;
         int _numOfPlayers = 0;
+        bool running = false;
         map<int, plr> _playersMap;
 
     public:
@@ -53,6 +56,7 @@ namespace coup
         /*healper Functions*/
         int numOfPlayers() const;
         int getTurn() const;
+        bool Running() const;
         void setNumOfPlayers(int num);
         void setPlayerTurn(int playerIndex, int turn);
         void setPlayerName(int playerIndex, string const &name);
@@ -61,6 +65,7 @@ namespace coup
         int playerTurn(int playerIndex);
         void resetTurns();
         void updateTurns();
+        void setRunning(bool rn);
         void setTurn(int currPlayerIndex);
     };
 

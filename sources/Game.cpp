@@ -29,6 +29,15 @@ namespace coup
      */
     void Game::updateTurns()
     {
+
+        if (_numOfPlayers == 1 && !running)
+        {
+            throw "Should be more then 1";
+        }
+        if (_numOfPlayers > 1)
+        {
+            running = true;
+        }
         if (_currPlayerTurn == _numOfPlayers - 1)
         {
             setTurn(0);
@@ -45,6 +54,11 @@ namespace coup
     void Game::resetTurns()
     {
         int t = 0;
+        if (_currPlayerTurn == _numOfPlayers)
+        {
+            setTurn(0);
+        }
+
         for (int i = 0; i < _playersMap.size(); i++)
         {
             if (!_playersMap[i].isCouped)
@@ -58,12 +72,12 @@ namespace coup
     string Game::winner()
     {
 
-        if (_numOfPlayers == 1)
+        if (_playersMap.size() == 1 || running)
         {
-            return players()[0];
+            throw "Game Still Running!!";
         }
 
-        throw "Game Still Running!!";
+        return players()[0];
     }
 
     string Game::turn()
@@ -108,6 +122,15 @@ namespace coup
     bool Game::isCopued(int playerIndex)
     {
         return _playersMap[playerIndex].isCouped;
+    }
+    void Game::setRunning(bool rn)
+    {
+        running = rn;
+    }
+
+    bool Game::Running() const
+    {
+        return running;
     }
 
 }

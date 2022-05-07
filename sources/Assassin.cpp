@@ -14,8 +14,8 @@ namespace coup
 
         int plrT = game.playerTurn(player_index);
         int otherplrT = game.playerTurn(otherPlayer.getPlayerIndex());
-        bool b = (plrT == game.getTurn() && !game.isCopued(player_index));
-        if (coins() < threeCoins || !b)
+        bool b = (plrT == game.getTurn() && !game.isCopued(otherPlayer.getPlayerIndex()));
+        if (((coins() < sevenCoins) && (coins() < 3)) || !b)
         {
             throw invalid_argument("Invalid operations!");
         }
@@ -25,10 +25,24 @@ namespace coup
         {
             game.updateTurns();
         }
-        setCoins(coins() - threeCoins);
+
+        if (coins() >= threeCoins && coins() < sevenCoins)
+        {
+            setCoins(coins() - threeCoins);
+            upateOperation(ASSASSIN);
+        }
+        else if (coins() >= sevenCoins)
+        {
+            setCoins(coins() - sevenCoins);
+            upateOperation(COUP);
+        }
+
         setLastOperPlayer(otherPlayer);
-        upateOperation(ASSASSIN);
         game.setNumOfPlayers(game.numOfPlayers() - 1);
+        if (game.numOfPlayers() == 1)
+        {
+            game.setRunning(false);
+        }
     }
     string Assassin::role()
     {

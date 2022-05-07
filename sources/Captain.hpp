@@ -12,16 +12,17 @@
 #include "Game.hpp"
 #include "Player.hpp"
 using namespace std;
-
 namespace coup
 {
 
-    class Ambassador : public Player
+    class Captain : public Player
     {
+
     public:
-        Ambassador(Game &game, string playerName) : Player(game, playerName) {}
-        void block(Player &otherPlayer);
-        void transfer(Player &player1, Player &player2);
+        Captain(Game &game, string playerName) : Player(game, playerName) {}
+        string role() override;
+        void steal(Player &otherPlayer);
+        static void block(Player &otherPlayer);
     };
 
 }

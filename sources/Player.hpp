@@ -31,6 +31,11 @@ namespace coup
             game.setPlayerName(player_index, _playerName);
             game.setPlayerTurn(player_index, player_index);
             game.setNumOfPlayers(game.numOfPlayers() + 1);
+
+            if (game.Running() || game.numOfPlayers() > 6)
+            {
+                throw "Game Is Running";
+            }
         };
 
         /*operations*/
