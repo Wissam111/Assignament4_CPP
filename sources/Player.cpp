@@ -48,7 +48,7 @@ namespace coup
         game.setCopued(otherPlayer.getPlayerIndex(), true);
         game.setNumOfPlayers(game.numOfPlayers() - 1);
         setCoins(coins() - sevenCoins);
-        // game.resetTurns();
+
         if (game.getTurn() < otherplrT)
         {
             game.updateTurns();

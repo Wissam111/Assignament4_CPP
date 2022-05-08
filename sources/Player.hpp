@@ -34,7 +34,7 @@ namespace coup
 
             if (game.Running() || game.numOfPlayers() > 6)
             {
-                throw "Game Is Running";
+                throw invalid_argument("Invalid operations!");
             }
         };
 
